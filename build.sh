@@ -30,7 +30,7 @@ docker manifest annotate ${IMAGE_NAME}:${VERSION} \
 
 docker manifest push ${IMAGE_NAME}:${VERSION}
 
-# Optionally, tag and push as latest
+# Tag and push as latest
 docker manifest create ${IMAGE_NAME}:latest \
     ${IMAGE_NAME}:${VERSION}-amd64 \
     ${IMAGE_NAME}:${VERSION}-arm64
