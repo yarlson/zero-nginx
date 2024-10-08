@@ -1,7 +1,7 @@
 FROM nginx:1.27-alpine3.19
 
 # Build argument for Zero version
-ARG ZERO_VERSION=0.1.0
+ARG ZERO_VERSION=0.1.1
 
 # Install necessary tools
 RUN apk add --no-cache curl tar
