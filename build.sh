@@ -2,7 +2,7 @@
 
 # Set variables
 IMAGE_NAME="yarlson/zero-nginx"
-VERSION="1.27-alpine3.19-zero0.1.1"  # Replace with your desired version
+VERSION="1.27-alpine3.19-zero0.1.1"
 
 # Enable Docker BuildKit
 export DOCKER_BUILDKIT=1
