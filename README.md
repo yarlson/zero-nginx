@@ -66,18 +66,8 @@ services:
     environment:
       - DOMAIN=example.com
       - EMAIL=user@example.com
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - |
-        while true; do
-          sleep 1d
-          if zero -d $$DOMAIN -e $$EMAIL -c /etc/nginx/ssl --renew; then
-            echo "Certificate renewed. Restarting Nginx..."
-            docker exec zero-nginx nginx -s reload
-          else
-            echo "No renewal needed or renewal failed."
-          fi
-        done
+      - PROXY_CONTAINER_NAME=nginx
+    entrypoint: /renew-certificates.sh
     networks:
       - web
 

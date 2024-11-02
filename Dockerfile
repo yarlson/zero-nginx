@@ -15,8 +15,10 @@ RUN case $(uname -m) in \
     echo "Detected architecture: $ARCH" && \
     curl -L https://github.com/yarlson/zero/releases/download/${ZERO_VERSION}/zero_${ZERO_VERSION}_linux_${ARCH}.tar.gz | tar xz -C /usr/local/bin
 
-# Copy the entrypoint script
+# Copy the scripts
 COPY 00-install-certificates.sh /docker-entrypoint.d
+COPY renew-certificates.sh /
 
-# Make the entrypoint script executable
-RUN chmod +x /docker-entrypoint.d/00-install-certificates.sh
+# Make the scripts executable
+RUN chmod +x /docker-entrypoint.d/00-install-certificates.sh \
+    && chmod +x /renew-certificates.sh
