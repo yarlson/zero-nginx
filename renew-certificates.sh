@@ -22,7 +22,7 @@ done
 # Get container ID for running containers filtered by name
 container_id=$(curl -s --unix-socket "$DOCKER_SOCKET" \
     "http:/v$DOCKER_API_VERSION/containers/json?all=false&filters=%7B%22name%22%3A%5B%22$PROXY_CONTAINER_NAME%22%5D%7D" | \
-    grep -oP '"Id":"\K[^"]+')
+    grep '"Id"' | head -n 1 | cut -d '"' -f 4)
 
 if [ -z "$container_id" ]; then
     echo "Proxy container '$PROXY_CONTAINER_NAME' is not running. Exiting..." >&2
