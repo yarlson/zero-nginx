@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 # Check required environment variables
 for var in DOMAIN EMAIL PROXY_CONTAINER_NAME; do
-    if [[ -z "${!var}" ]]; then
-        echo "${var} environment variable is not set" >&2
+    eval "value=\${$var}"
+    if [ -z "$value" ]; then
+        echo "$var environment variable is not set" >&2
         exit 1
     fi
 done
