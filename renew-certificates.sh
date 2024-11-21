@@ -29,6 +29,8 @@ if [ -z "$container_id" ]; then
     exit 1
 fi
 
+echo "Proxy container '$PROXY_CONTAINER_NAME' is running with ID '$container_id'. Starting renewal loop..."
+
 while true; do
     sleep 1d
     if zero -d "$DOMAIN" -e "$EMAIL" -c /etc/nginx/ssl --renew; then
