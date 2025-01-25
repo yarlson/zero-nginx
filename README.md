@@ -1,3 +1,59 @@
+# zero-nginx (Archived)
+
+⚠️ **This repository is archived. All functionality has been moved to [Zero](https://github.com/yarlson/zero).**
+
+Zero now provides a more robust and simpler solution for SSL certificate management with Nginx. See the [Docker integration guide](https://github.com/yarlson/zero#docker) for setup instructions.
+
+## Migration Guide
+
+If you're using zero-nginx, you can migrate to Zero using this docker-compose.yml:
+
+```yaml
+volumes:
+  certs:  # Named volume for certificates
+
+services:
+  zero:
+    image: yarlson/zero:latest
+    ports:
+      - "80:80"
+    volumes:
+      - certs:/certs
+    command:
+      - -d
+      - example.com
+      - -e
+      - user@example.com
+      - -c
+      - /certs
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - zero
+    restart: unless-stopped
+```
+
+Benefits of the new solution:
+- Simpler architecture (no certificate renewer container needed)
+- More reliable certificate management
+- Better Docker integration
+- Automatic HTTP to HTTPS redirection
+- Support for both AMD64 and ARM64 architectures
+
+See the [Zero documentation](https://github.com/yarlson/zero) for complete setup instructions and configuration options.
+
+## Historical Documentation
+
+<details>
+<summary>Click to show original documentation</summary>
+
 # zero-nginx
 
 zero-nginx is an Nginx-based Docker image that integrates [Zero](https://github.com/yarlson/zero), a tool for automatically obtaining and managing SSL/TLS certificates from Let's Encrypt. This image simplifies the process of setting up a secure web server with automatic certificate management.
@@ -111,3 +167,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Related Projects
 
 - [Zero](https://github.com/yarlson/zero): The SSL/TLS certificate management tool integrated into this image.
+</details>
